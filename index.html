@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sponsorer och Lag</title>
+  <title>Lag och Sponsorer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,57 +18,21 @@
       padding: 20px;
       text-align: center;
     }
-    .sponsor-section {
-      background-color: #fff;
+    .content {
       padding: 20px;
     }
-    .sponsor-carousel {
-      display: flex;
-      overflow: hidden;
-      justify-content: center;
-      padding: 20px 0;
-    }
-    .sponsor-carousel img {
-      height: 100px;
-      margin: 0 15px;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .sponsor-carousel img:hover {
-      transform: scale(1.1);
-    }
-    .carousel-container {
-      display: flex;
-      animation: scroll 20s linear infinite;
-    }
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .team-section {
-      background-color: #f4f4f4;
-      padding: 20px;
-      text-align: center;
-    }
-    .team-button {
+    .button {
       background-color: #28a745;
       color: white;
       border: none;
       padding: 10px 20px;
       cursor: pointer;
+      display: block;
+      margin: 20px auto;
       font-size: 16px;
-      margin-top: 20px;
-      transition: background-color 0.3s;
     }
-    .team-button:hover {
+    .button:hover {
       background-color: #218838;
-    }
-    footer {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 30px;
     }
     .popup {
       display: none;
@@ -77,131 +41,178 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 50px;
+      text-align: center;
       align-items: center;
+      justify-content: center;
     }
     .popup-content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      width: 80%;
-      max-width: 400px;
-      text-align: center;
+      background-color: #333;
+      padding: 30px;
+      border-radius: 5px;
+      display: inline-block;
+      text-align: left;
     }
-    .popup-content h3 {
-      margin: 10px 0;
-    }
-    .popup-content button {
-      background-color: #28a745;
-      color: white;
+    .popup .back-button {
+      background-color: red;
       border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
+      color: white;
+      padding: 10px;
       cursor: pointer;
-      border-radius: 4px;
+      margin-top: 20px;
     }
-    .popup-content button:hover {
-      background-color: #218838;
+    .popup .back-button:hover {
+      background-color: darkred;
+    }
+    .carousel-container {
+      display: flex;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .carousel img {
+      width: 150px;
+      height: auto;
+      margin: 0 10px;
+      transition: transform 0.5s ease;
+    }
+    .carousel-container {
+      display: flex;
+      animation: rotate 20s infinite linear;
+    }
+    @keyframes rotate {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+    /* Gör det responsivt */
+    @media (max-width: 768px) {
+      .carousel-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .carousel img {
+        width: 120px;
+        margin: 10px 0;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Välkommen till vår hemsida!</h1>
-  <p>Från 2024 - Sponsorer och lag</p>
+  <h1>Sponsorer och Lag</h1>
 </header>
 
-<section class="sponsor-section">
-  <h2>Våra Sponsorer</h2>
-  <div class="sponsor-carousel">
-    <div class="carousel-container">
-<a href="https://www.mekonomen.se/butik-bilverkstad/vara-bilverkstader/harnosand?gclid=CjwKCAjwvrOpBhBdEiwAR58-3DaXcGCuUJjl4oWMfqCBkJN1SD6QmlRohft4izDVT94VFPqjk-zlXhoCiqwQAvD_BwE" target="_blank">
-  <img src="https://az316141.cdn.laget.se/10767997_medium.png" alt="Mekonomen">
-</a>
-<a href="https://jjbyggab.com/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11313620_medium.jpg" alt="JJ Bygg">
-</a>
-<a href="https://www.sundfrakt.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11304148_medium.jpg" alt="Sundfrakt">
-</a>
-<a href="https://www.jasab.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11313639_medium.jpg" alt="JASAB">
-</a>
-<a href="https://nsiinvest.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11313642_medium.jpg" alt="NSI">
-</a>
-<a href="https://highcon.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314776_medium.png" alt="HighCon">
-</a>
-<a href="https://forsakringskonsult.com/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314738_medium.jpg" alt="Försäkringskonsult">
-</a>
-<a href="https://www.harnosandsplatslageri.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314739_medium.jpg" alt="HPS">
-</a>
-<a href="https://www.craftsportswear.com/sv" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314740_medium.jpg" alt="Craft">
-</a>
-<a href="https://www.intersport.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314741_medium.jpg" alt="Intersport">
-</a>
-<a href="https://www.coop.se/butiker-erbjudanden/stora-coop/stora-coop-harnosand/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314751_medium.jfif" alt="COOP">
-</a>
-<a href="https://harnosandshus.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314758_medium.png" alt="H-Hus">
-</a>
-<a href="https://sjolundsvvs.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314760_medium.png" alt="J Sjölunds">
-</a>
-<a href="https://norrskydd.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314764_medium.jfif" alt="Norrskydd">
-</a>
-<a href="https://www.lansforsakringar.se/vasternorrland/privat/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314766_medium.png" alt="Länsförsäkringar">
-</a>
-<a href="http://www.bargab.se/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314770_medium.png" alt="BÄRGAB">
-</a>
-<a href="https://www.sca.com/sv/" target="_blank">
-  <img src="https://az316141.cdn.laget.se/11314772_medium.png" alt="SCA">
-</a>
+<div class="content">
+  <button class="button" onclick="visaLag()">Visa Lag</button>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Lag Information</h2>
+      <p id="team-info"></p>
+      <button class="back-button" onclick="stängPopup()">Tillbaka</button>
     </div>
   </div>
-</section>
 
-<section class="team-section">
-  <h2>Lagen</h2>
-  <button class="team-button" onclick="showPopup()">Visa Lag</button>
-</section>
+  <div class="team-list">
+    <p onclick="visaLagInfo('Information om Flickor 16 (F08/09)')">Flickor 16 (F08/09)</p>
+    <p onclick="visaLagInfo('Information om F-10')">F-10</p>
+    <p onclick="visaLagInfo('Information om F-11')">F-11</p>
+    <p onclick="visaLagInfo('Information om F-12')">F-12</p>
+    <p onclick="visaLagInfo('Information om F-13')">F-13</p>
+    <p onclick="visaLagInfo('Information om F-14')">F-14</p>
+    <p onclick="visaLagInfo('Information om F-15')">F-15</p>
+    <p onclick="visaLagInfo('Information om F-16')">F-16</p>
+    <p onclick="visaLagInfo('Information om F-17')">F-17</p>
+    <p onclick="visaLagInfo('Information om F-18')">F-18</p>
+    <p onclick="visaLagInfo('Information om Pojkar 16 (P08/09)')">Pojkar 16 (P08/09)</p>
+    <p onclick="visaLagInfo('Information om P-10')">P-10</p>
+    <p onclick="visaLagInfo('Information om P-11')">P-11</p>
+    <p onclick="visaLagInfo('Information om P-12')">P-12</p>
+    <p onclick="visaLagInfo('Information om P-13')">P-13</p>
+    <p onclick="visaLagInfo('Information om P-14')">P-14</p>
+    <p onclick="visaLagInfo('Information om P-15')">P-15</p>
+    <p onclick="visaLagInfo('Information om P-16')">P-16</p>
+    <p onclick="visaLagInfo('Information om P-17')">P-17</p>
+    <p onclick="visaLagInfo('Information om Dam/utv')">Dam/utv</p>
+    <p onclick="visaLagInfo('Information om A-lag Herrar')">A-lag Herrar</p>
+  </div>
 
-<footer>
-  <p>© 2024 - Vi är här för dig!</p>
-</footer>
+  <div class="section-header">
+    <h2>Våra Sponsorer</h2>
+  </div>
 
-<!-- Popup -->
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <h3>Lag Information</h3>
-    <ul>
-      <li>A-lag Herrar</li>
-      <li>A-lag Damer</li>
-      <li>Ungdomslag</li>
-      <li>Pojkar 16 (P08/09)</li>
-      <li>Flickor 16 (F08/09)</li>
-    </ul>
-    <button onclick="hidePopup()">Tillbaka</button>
+  <div class="carousel-container">
+    <div class="carousel">
+      <img src="https://az316141.cdn.laget.se/7601669_medium.jpg" alt="Westerlind Fastigheter" onclick="öppnaLänk('http://www.westerlindfastigheter.se/')">
+      <img src="https://az316141.cdn.laget.se/10767996_medium.png" alt="Ekebro Utveckling" onclick="öppnaLänk('https://ekebroutveckling.se/')">
+      <img src="https://az316141.cdn.laget.se/11313637_medium.jpg" alt="HSTA" onclick="öppnaLänk('https://hsta.se/')">
+      <img src="https://az316141.cdn.laget.se/10767997_medium.png" alt="Mekonomen" onclick="öppnaLänk('https://www.mekonomen.se/butik-bilverkstad/vara-bilverkstader/harnosand?gclid=CjwKCAjwvrOpBhBdEiwAR58-3DaXcGCuUJjl4oWMfqCBkJN1SD6QmlRohft4izDVT94VFPqjk-zlXhoCiqwQAvD_BwE')">
+      <img src="https://az316141.cdn.laget.se/11313620_medium.jpg" alt="JJ Bygg" onclick="öppnaLänk('https://jjbyggab.com/')">
+      <!-- Lägg till fler sponsorbilder vid behov -->
+    </div>
   </div>
 </div>
 
+<footer>
+  <p>&copy; 2024 - Alla rättigheter reserverade</p>
+</footer>
+
 <script>
-  function showPopup() {
-    document.getElementById('popup').style.display = 'flex';
+  function visaLag() {
+    const lagData = [
+      { name: "Flickor 16 (F08/09)", info: "Information om Flickor 16 (F08/09)" },
+      { name: "F-10", info: "Information om F-10" },
+      { name: "F-11", info: "Information om F-11" },
+      { name: "F-12", info: "Information om F-12" },
+      { name: "F-13", info: "Information om F-13" },
+      { name: "F-14", info: "Information om F-14" },
+      { name: "F-15", info: "Information om F-15" },
+      { name: "F-16", info: "Information om F-16" },
+      { name: "F-17", info: "Information om F-17" },
+      { name: "F-18", info: "Information om F-18" },
+      { name: "Pojkar 16 (P08/09)", info: "Information om Pojkar 16 (P08/09)" },
+      { name: "P-10", info: "Information om P-10" },
+      { name: "P-11", info: "Information om P-11" },
+      { name: "P-12", info: "Information om P-12" },
+      { name: "P-13", info: "Information om P-13" },
+      { name: "P-14", info: "Information om P-14" },
+      { name: "P-15", info: "Information om P-15" },
+      { name: "P-16", info: "Information om P-16" },
+      { name: "P-17", info: "Information om P-17" },
+      { name: "Dam/utv", info: "Information om Dam/utv" },
+      { name: "A-lag Herrar", info: "Information om A-lag Herrar" }
+    ];
+
+    let lagLista = "";
+    lagData.forEach(lag => {
+      lagLista += `<p onclick="visaLagInfo('${lag.info}')">${lag.name}</p>`;
+    });
+
+    document.getElementById("team-info").innerHTML = lagLista;
+    document.getElementById("popup").style.display = 'flex';
   }
-  function hidePopup() {
-    document.getElementById('popup').style.display = 'none';
+
+  function visaLagInfo(info) {
+    document.getElementById("team-info").innerHTML = `<p>${info}</p><button class="back-button" onclick="stängPopup()">Tillbaka</button>`;
+  }
+
+  function stängPopup() {
+    document.getElementById("popup").style.display = 'none';
+  }
+
+  function öppnaLänk(url) {
+    window.open(url, '_blank');
   }
 </script>
 
