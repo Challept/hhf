@@ -26,16 +26,28 @@
             overflow-x: hidden;
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 100, 0, 0.95);
-            z-index: 1000;
-            padding: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
+    /* Updated Navigation */
+    .nav {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 1200px;
+        background: rgba(0, 100, 0, 0.95);
+        z-index: 1000;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: floatNav 3s infinite ease-in-out;
+    }
+
+    @keyframes floatNav {
+        0%, 100% { transform: translateX(-50%) translateY(0px); }
+        50% { transform: translateX(-50%) translateY(-10px); }
+    }
 
         .nav ul {
             display: flex;
@@ -281,6 +293,68 @@
             color: var(--accent-gold);
         }
 
+    /* Team Popup Styles */
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        backdrop-filter: blur(5px);
+    }
+
+    .popup-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, var(--primary-green), var(--primary-black));
+        padding: 2rem;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 600px;
+        color: white;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        animation: popupIn 0.5s ease-out;
+    }
+
+    @keyframes popupIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -60%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .close-popup {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--accent-gold);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: var(--primary-black);
+        transition: all 0.3s;
+    }
+
+    .close-popup:hover {
+        transform: rotate(90deg);
+        background: var(--primary-white);
+    }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav ul {
@@ -330,6 +404,15 @@
         <button class="teams-button" onclick="toggleTeams()">Visa alla lag</button>
     </header>
 
+<!-- Add this HTML for the popup structure -->
+<div class="popup-overlay" id="teamPopup">
+    <div class="popup-content">
+        <button class="close-popup" onclick="closePopup()">×</button>
+        <h2 id="popupTitle"></h2>
+        <div id="popupContent"></div>
+    </div>
+</div>
+    
     <!-- Sponsor Carousel -->
     <section class="sponsor-section">
         <h2 class="section-title">Våra sponsorer</h2>
@@ -398,58 +481,197 @@
         <p>© 2024 Härnösand HF - Alla rättigheter förbehållna</p>
     </footer>
 
-    <script>
-        const teams = [
-            "Flickor 16 (F08/09)", "F-10", "F-11", "F-12", "F-13", "F-14", 
-            "F-15", "F-16", "F-17", "F-18", "Pojkar 16 (P08/09)", "P-10", 
-            "P-11", "P-12", "P-13", "P-14", "P-15", "P-16", "P-17", 
-            "A-lag Dam/utv", "A-lag Herrar"
-        ];
+<script>
+    // Team data with detailed information
+    const teams = [
+        "Flickor 16 (F08/09)", "F-10", "F-11", "F-12", "F-13", "F-14", 
+        "F-15", "F-16", "F-17", "F-18", "Pojkar 16 (P08/09)", "P-10", 
+        "P-11", "P-12", "P-13", "P-14", "P-15", "P-16", "P-17", 
+        "A-lag Dam/utv", "A-lag Herrar"
+    ];
 
-        function createTeamCards() {
-            const container = document.getElementById('teamsContainer');
-            teams.forEach(team => {
-                const card = document.createElement('div');
-                card.className = 'team-card';
-                card.innerHTML = `
-                    <h3>${team}</h3>
-                    <p>Klicka för mer information</p>
-                `;
-                card.addEventListener('click', () => {
-                    alert(`Mer information om ${team} kommer snart!`);
-                });
-                container.appendChild(card);
-            });
+    const teamInfo = {
+        "Flickor 16 (F08/09)": {
+            coach: "Anna Andersson",
+            training: "Måndag & Torsdag 18:00-19:30",
+            location: "Härnösands Arena",
+            description: "Ett ambitiöst lag som tränar hårt och har kul tillsammans!"
+        },
+        "A-lag Dam/utv": {
+            coach: "Maria Karlsson",
+            training: "Tisdag & Fredag 19:00-20:30",
+            location: "Härnösands Arena",
+            description: "Vårt damlag spelar i division 2 och siktar högt!"
+        },
+        "A-lag Herrar": {
+            coach: "Anders Svensson",
+            training: "Måndag & Onsdag 20:00-21:30",
+            location: "Härnösands Arena",
+            description: "Herrlagets målsättning är att avancera i seriesystemet!"
         }
+        // Add more team info as needed
+    };
 
-        function toggleTeams() {
-            const container = document.getElementById('teamsContainer');
-            container.classList.toggle('show');
-            const button = document.querySelector('.teams-button');
-            button.textContent = container.classList.contains('show') ? 
-                'Dölj lag' : 'Visa alla lag';
+    // Sponsor data
+    const sponsors = [
+        {
+            name: "Mekonomen",
+            url: "https://www.mekonomen.se/butik-bilverkstad/vara-bilverkstader/harnosand",
+            img: "https://az316141.cdn.laget.se/10767997_medium.png"
+        },
+        {
+            name: "JJ Bygg",
+            url: "https://jjbyggab.com/",
+            img: "https://az316141.cdn.laget.se/11313620_medium.jpg"
+        },
+        // Add all sponsors similarly
+    ];
+
+    function createTeamCards() {
+        const container = document.getElementById('teamsContainer');
+        teams.forEach(team => {
+            const card = document.createElement('div');
+            card.className = 'team-card';
+            card.innerHTML = `
+                <h3>${team}</h3>
+                <p>Klicka för mer information</p>
+                <div class="team-card-overlay">
+                    <span>Visa detaljer</span>
+                </div>
+            `;
+            card.addEventListener('click', () => showTeamPopup(team));
+            container.appendChild(card);
+        });
+    }
+
+    function showTeamPopup(team) {
+        const info = teamInfo[team] || {
+            coach: "Information kommer snart",
+            training: "Information kommer snart",
+            location: "Information kommer snart",
+            description: "Mer information kommer snart!"
+        };
+
+        const popup = document.getElementById('teamPopup');
+        const content = document.getElementById('popupContent');
+        
+        content.innerHTML = `
+            <h2 class="popup-title">${team}</h2>
+            <div class="popup-info">
+                <div class="info-item">
+                    <i class="fas fa-user-coach"></i>
+                    <h3>Tränare</h3>
+                    <p>${info.coach}</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Träningstider</h3>
+                    <p>${info.training}</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Plats</h3>
+                    <p>${info.location}</p>
+                </div>
+                <div class="info-description">
+                    <p>${info.description}</p>
+                </div>
+            </div>
+        `;
+        
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function createSponsorCarousel() {
+        const track = document.querySelector('.sponsor-track');
+        
+        // Add original sponsors
+        sponsors.forEach(sponsor => {
+            track.innerHTML += `
+                <div class="sponsor-item">
+                    <a href="${sponsor.url}" target="_blank">
+                        <img src="${sponsor.img}" alt="${sponsor.name}">
+                    </a>
+                </div>
+            `;
+        });
+        
+        // Clone sponsors for infinite scroll
+        track.innerHTML += track.innerHTML;
+    }
+
+    function toggleTeams() {
+        const container = document.getElementById('teamsContainer');
+        container.classList.toggle('show');
+        const button = document.querySelector('.teams-button');
+        
+        if (container.classList.contains('show')) {
+            button.textContent = 'Dölj lag';
+            button.classList.add('active');
+        } else {
+            button.textContent = 'Visa alla lag';
+            button.classList.remove('active');
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            createTeamCards();
+    function closePopup() {
+        const popup = document.getElementById('teamPopup');
+        popup.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
 
-            // Form handling
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        createTeamCards();
+        createSponsorCarousel();
+
+        // Form handling with validation
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const message = this.querySelector('textarea').value;
+
+            if (name.length < 2 || email.length < 5 || message.length < 10) {
+                alert('Vänligen fyll i alla fält korrekt.');
+                return;
+            }
+
+            alert('Tack för ditt meddelande! Vi återkommer så snart som möjligt.');
+            this.reset();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('Tack för ditt meddelande! Vi återkommer så snart som möjligt.');
-                this.reset();
-            });
-
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                });
+                }
             });
         });
-    </script>
+
+        // Close popup when clicking outside
+        document.getElementById('teamPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Escape key closes popup
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+    });
+</script>
 </body>
 </html>
