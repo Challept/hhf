@@ -1,34 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=https://click.thecoolpal.com">
-    <title>Redirecting...</title>
-    <script>
-        // JavaScript fallback for redirection
-        window.location.href = "https://click.thecoolpal.com";
-    </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertke - Premium Basketballs</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f9;
+      color: #333;
+    }
 
-        .message {
-            text-align: center;
-        }
-    </style>
+    h1, h2, h3 {
+      font-family: 'Helvetica', sans-serif;
+      color: #222;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0073e6;
+    }
+
+    /* Header */
+    header {
+      background: #1a1a1a;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: white;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #0073e6;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 4rem;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* About Section */
+    .about {
+      padding: 60px 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .about p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Products Section */
+    .products {
+      padding: 60px 20px;
+      background: #f4f4f9;
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .product-grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .product-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      font-size: 1.5rem;
+      margin: 15px 0;
+    }
+
+    .product-card p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 60px 20px;
+      background: white;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact input, .contact textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .contact button {
+      padding: 10px 20px;
+      background: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact button:hover {
+      background: #005bb5;
+    }
+
+    /* Footer */
+    footer {
+      background: #1a1a1a;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <div class="message">
-        <h1>Redirecting...</h1>
-        <p>If you are not redirected automatically, <a href="https://click.thecoolpal.com">click here</a>.</p>
+  <!-- Header -->
+  <header>
+    <h1>Vertke</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <h2>Premium Basketballs for Champions</h2>
+      <p>Elevate your game with Vertke's high-performance basketballs.</p>
     </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>Vertke is dedicated to creating the finest basketballs for players of all levels. Our products are designed with precision, durability, and performance in mind.</p>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Basketball 1">
+        <h3>Pro Elite</h3>
+        <p>Designed for professional players with superior grip and durability.</p>
+      </div>
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Basketball 2">
+        <h3>Street King</h3>
+        <p>Perfect for streetball enthusiasts with unmatched toughness.</p>
+      </div>
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Basketball 3">
+        <h3>Training Pro</h3>
+        <p>Ideal for training sessions with excellent bounce and control.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Vertke. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simple JavaScript for animations or interactivity
+    document.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.style.backgroundColor = '#111';
+      } else {
+        header.style.backgroundColor = '#1a1a1a';
+      }
+    });
+  </script>
 </body>
 </html>
