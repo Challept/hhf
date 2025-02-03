@@ -1,292 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vertke - Premium Basketballs</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Benchmark Challenge</title>
   <style>
-    /* General Styles */
+    /* Global Reset & Base Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #f4f4f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
       color: #333;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Helvetica', sans-serif;
-      color: #222;
-    }
-
-    a {
-      text-decoration: none;
-      color: #0073e6;
-    }
-
-    /* Header */
-    header {
-      background: #1a1a1a;
-      color: white;
-      padding: 20px 0;
       text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    nav {
-      margin-top: 10px;
-    }
-
-    nav a {
-      margin: 0 15px;
-      color: white;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #0073e6;
-    }
-
-    /* Hero Section */
-    .hero {
-      background: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-    }
-
-    .hero h2 {
-      font-size: 4rem;
-      animation: slideIn 1.5s ease-in-out;
-    }
-
-    .hero p {
-      font-size: 1.5rem;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    /* About Section */
-    .about {
-      padding: 60px 20px;
-      text-align: center;
-      background: white;
-    }
-
-    .about h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .about p {
-      font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    /* Products Section */
-    .products {
-      padding: 60px 20px;
-      background: #f4f4f9;
-      text-align: center;
-    }
-
-    .products h2 {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .product-grid {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-
-    .product-card {
-      background: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 300px;
-      margin: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .product-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .product-card h3 {
-      font-size: 1.5rem;
-      margin: 15px 0;
-    }
-
-    .product-card p {
-      font-size: 1rem;
-      color: #666;
-    }
-
-    /* Contact Section */
-    .contact {
-      padding: 60px 20px;
-      background: white;
-      text-align: center;
-    }
-
-    .contact h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .contact form {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contact input, .contact textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
-    .contact button {
-      padding: 10px 20px;
-      background: #0073e6;
-      color: white;
+    h1, h2 { font-weight: 600; }
+    p { margin-bottom: 15px; }
+    button {
+      padding: 10px 15px;
+      background: #4caf50;
       border: none;
       border-radius: 5px;
-      font-size: 1rem;
+      color: #fff;
+      font-size: 1em;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s, transform 0.2s;
+      margin: 5px;
     }
-
-    .contact button:hover {
-      background: #005bb5;
+    button:hover { background: #43a047; transform: scale(1.03); }
+    .hidden { display: none; }
+    
+    /* Header & Main Menu */
+    header {
+      background: #fff;
+      padding: 20px;
+      border-bottom: 2px solid #ddd;
+      margin-bottom: 20px;
     }
-
-    /* Footer */
-    footer {
-      background: #1a1a1a;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
+    header h1 { font-size: 2em; margin-bottom: 10px; }
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
     }
-
-    footer p {
-      margin: 0;
-      font-size: 1rem;
+    .menu button {
+      background: #2196f3;
+      padding: 12px 20px;
     }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .menu button:hover { background: #1976d2; }
+    
+    /* Container for Inline Tests */
+    .container {
+      max-width: 700px;
+      background: #fff;
+      margin: 0 auto 30px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
     }
-
-    @keyframes slideIn {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .container h2 { margin-bottom: 10px; }
+    .nav-buttons { margin-top: 15px; }
+    .nav-buttons button { margin: 5px; }
+    .result { margin-top: 15px; font-size: 1.2em; color: #d32f2f; }
+    
+    /* Graph Canvas */
+    .graphCanvas {
+      margin: 20px auto 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #fafafa;
+      display: block;
     }
+    
+    /* Reaction Test Styles */
+    #reactionTestBox {
+      width: 100%;
+      height: 200px;
+      margin: 20px auto;
+      background: #d32f2f;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s, transform 0.2s;
+      font-size: 1.4em;
+      color: #fff;
+    }
+    #reactionTestBox:hover { transform: scale(1.02); }
+    
+    /* Typing Test Styles */
+    #typingTestPrompt {
+      font-size: 1.2em;
+      margin: 15px 0;
+      padding: 12px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      display: inline-block;
+      text-align: left;
+      letter-spacing: 0.5px;
+    }
+    #typingTestPrompt span { transition: color 0.2s; }
+    #typingTestPrompt span.correct { color: green; }
+    #typingTestPrompt span.incorrect { color: red; }
+    input#typingInput {
+      width: 90%;
+      padding: 12px;
+      font-size: 1.1em;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input#typingInput:focus { border-color: #4caf50; }
+    
+    /* Aim Test Styles */
+    #aimTestArea {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background: #e0f2f1;
+      border: 2px solid #b2dfdb;
+      border-radius: 10px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    .aimTarget {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ffeb3b;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .aimTarget:hover { transform: scale(1.2); }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <h1>Vertke</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#products">Products</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <h1>Human Benchmark Challenge</h1>
+    <p>Test your Reaction, Typing, and Aim skills. Compare your performance against the average!</p>
   </header>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div>
-      <h2>Premium Basketballs for Champions</h2>
-      <p>Elevate your game with Vertke's high-performance basketballs.</p>
+  
+  <!-- Main Menu -->
+  <div class="menu" id="mainMenu">
+    <button onclick="showTest('reaction')">Reaction Test</button>
+    <button onclick="showTest('typing')">Typing Test</button>
+    <button onclick="showTest('aim')">Aim Test</button>
+    <!-- Memory Test button now redirects to an external URL -->
+    <button onclick="window.location.href='https://thecoolpal.com/memory.html'">Memory Test</button>
+  </div>
+  
+  <!-- Reaction Time Test -->
+  <div class="container hidden" id="reactionTest">
+    <h2>Reaction Time Test</h2>
+    <p>Click "Start Reaction Test" then wait for the box to turn green. Click as soon as it does. If you click too early, you fail!</p>
+    <button id="reactionStartBtn" onclick="initReactionTest()">Start Reaction Test</button>
+    <div id="reactionTestBox" class="hidden">Wait for green...</div>
+    <div class="result" id="reactionResult"></div>
+    <canvas id="reactionGraph" class="graphCanvas" width="300" height="150"></canvas>
+    <div class="nav-buttons">
+      <button onclick="resetReactionTest()">Try Again</button>
+      <button onclick="backToMenu()">Back to Menu</button>
     </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="about">
-    <h2>About Us</h2>
-    <p>Vertke is dedicated to creating the finest basketballs for players of all levels. Our products are designed with precision, durability, and performance in mind.</p>
-  </section>
-
-  <!-- Products Section -->
-  <section id="products" class="products">
-    <h2>Our Products</h2>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Basketball 1">
-        <h3>Pro Elite</h3>
-        <p>Designed for professional players with superior grip and durability.</p>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Basketball 2">
-        <h3>Street King</h3>
-        <p>Perfect for streetball enthusiasts with unmatched toughness.</p>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Basketball 3">
-        <h3>Training Pro</h3>
-        <p>Ideal for training sessions with excellent bounce and control.</p>
-      </div>
+  </div>
+  
+  <!-- Typing Test -->
+  <div class="container hidden" id="typingTest">
+    <h2>Typing Test</h2>
+    <p>Type the sentence below as quickly and accurately as you can. Correct letters turn <span style="color:green;">green</span> and wrong letters turn <span style="color:red;">red</span>. Your timer starts when you type the first character.</p>
+    <div id="typingTestPrompt"></div>
+    <br>
+    <input type="text" id="typingInput" placeholder="Start typing here..." autocomplete="off" />
+    <div class="result" id="typingResult"></div>
+    <canvas id="typingGraph" class="graphCanvas" width="300" height="150"></canvas>
+    <div class="nav-buttons">
+      <button onclick="resetTypingTest()">Try Again</button>
+      <button onclick="backToMenu()">Back to Menu</button>
     </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Vertke. All rights reserved.</p>
-  </footer>
-
+  </div>
+  
+  <!-- Aim Test -->
+  <div class="container hidden" id="aimTest">
+    <h2>Aim Test</h2>
+    <p>Click the target as quickly as possible. Complete 10 targets to see your average click speed!</p>
+    <div id="aimTestArea"></div>
+    <div class="result" id="aimResult"></div>
+    <canvas id="aimGraph" class="graphCanvas" width="300" height="150"></canvas>
+    <div class="nav-buttons">
+      <button onclick="resetAimTest()">Try Again</button>
+      <button onclick="backToMenu()">Back to Menu</button>
+    </div>
+  </div>
+  
   <script>
-    // Simple JavaScript for animations or interactivity
-    document.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.style.backgroundColor = '#111';
-      } else {
-        header.style.backgroundColor = '#1a1a1a';
+    /* ---------------- Navigation Functions ---------------- */
+    function showTest(test) {
+      document.getElementById("mainMenu").classList.add("hidden");
+      document.querySelectorAll('.container').forEach(el => el.classList.add("hidden"));
+      document.getElementById(test + "Test").classList.remove("hidden");
+      if(test === "reaction") {
+        document.getElementById("reactionTestBox").classList.add("hidden");
+        document.getElementById("reactionResult").textContent = "";
       }
-    });
+      if(test === "typing") startTypingTest();
+      if(test === "aim") startAimTest();
+    }
+    function backToMenu() {
+      document.querySelectorAll('.container').forEach(el => el.classList.add("hidden"));
+      document.getElementById("mainMenu").classList.remove("hidden");
+    }
+    
+    /* ---------------- Graph Drawing Function ---------------- */
+    function drawGraph(canvasId, userValue, averageValue, label) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = 300;
+      canvas.height = 150;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Scale bars with a 10% buffer
+      const maxVal = Math.max(userValue, averageValue) * 1.1;
+      const maxBarHeight = canvas.height - 40;
+      const scaleFactor = maxBarHeight / maxVal;
+      
+      const barWidth = 80, spacing = 40;
+      const userBarHeight = userValue * scaleFactor;
+      const avgBarHeight = averageValue * scaleFactor;
+      
+      // Draw user bar (green)
+      ctx.fillStyle = "#4caf50";
+      ctx.fillRect(spacing, canvas.height - userBarHeight - 20, barWidth, userBarHeight);
+      // Draw average bar (blue)
+      ctx.fillStyle = "#2196f3";
+      ctx.fillRect(spacing * 2 + barWidth, canvas.height - avgBarHeight - 20, barWidth, avgBarHeight);
+      
+      // Draw labels
+      ctx.fillStyle = "#333";
+      ctx.font = "14px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("You: " + userValue.toFixed(2), spacing + barWidth/2, canvas.height - 5);
+      ctx.fillText("Avg: " + averageValue.toFixed(2), spacing * 2 + barWidth + barWidth/2, canvas.height - 5);
+      ctx.font = "16px sans-serif";
+      ctx.fillText(label, canvas.width / 2, 20);
+    }
+    
+    /* ---------------- Reaction Test ---------------- */
+    let reactionStartTime, reactionTimeout;
+    let reactionTestActive = false;
+    function initReactionTest() {
+      document.getElementById("reactionStartBtn").classList.add("hidden");
+      const box = document.getElementById("reactionTestBox");
+      const result = document.getElementById("reactionResult");
+      result.textContent = "";
+      box.style.background = "#d32f2f";
+      box.textContent = "Wait for green...";
+      box.classList.remove("hidden");
+      reactionTestActive = true;
+      
+      clearTimeout(reactionTimeout);
+      reactionTimeout = setTimeout(() => {
+        if (!reactionTestActive) return;
+        box.style.background = "#388e3c";
+        box.textContent = "Click!";
+        reactionStartTime = Date.now();
+      }, Math.random() * 2000 + 1000);
+      
+      box.onclick = () => {
+        if (!reactionStartTime) {
+          reactionTestActive = false;
+          clearTimeout(reactionTimeout);
+          result.textContent = "Too soon! You clicked before it turned green.";
+          box.classList.add("hidden");
+          drawGraph("reactionGraph", 1000, 250, "Reaction Time (ms)");
+          document.getElementById("reactionStartBtn").classList.remove("hidden");
+          return;
+        }
+        const reactionTime = Date.now() - reactionStartTime;
+        reactionTestActive = false;
+        result.textContent = "Your reaction time: " + reactionTime + " ms";
+        drawGraph("reactionGraph", reactionTime, 250, "Reaction Time (ms)");
+      };
+    }
+    function resetReactionTest() {
+      document.getElementById("reactionStartBtn").classList.remove("hidden");
+      document.getElementById("reactionTestBox").classList.add("hidden");
+      document.getElementById("reactionResult").textContent = "";
+      const canvas = document.getElementById("reactionGraph");
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+      reactionStartTime = null;
+      reactionTestActive = false;
+      clearTimeout(reactionTimeout);
+    }
+    
+    /* ---------------- Typing Test ---------------- */
+    const typingPrompts = [
+      "The quick brown fox jumps over the lazy dog.",
+      "Pack my box with five dozen liquor jugs.",
+      "Sphinx of black quartz, judge my vow.",
+      "How quickly daft jumping zebras vex."
+    ];
+    let typingStartTime, currentPrompt = "";
+    function startTypingTest() {
+      const promptContainer = document.getElementById("typingTestPrompt");
+      const inputEl = document.getElementById("typingInput");
+      const resultEl = document.getElementById("typingResult");
+      resultEl.textContent = "";
+      inputEl.value = "";
+      inputEl.disabled = false;
+      typingStartTime = null;
+      
+      currentPrompt = typingPrompts[Math.floor(Math.random() * typingPrompts.length)];
+      promptContainer.innerHTML = "";
+      for (let char of currentPrompt) {
+        const span = document.createElement("span");
+        span.textContent = char;
+        promptContainer.appendChild(span);
+      }
+      inputEl.focus();
+      
+      inputEl.oninput = () => {
+        if (typingStartTime === null) {
+          typingStartTime = Date.now();
+        }
+        const inputValue = inputEl.value;
+        const letters = promptContainer.querySelectorAll("span");
+        letters.forEach((span, index) => {
+          if (index < inputValue.length) {
+            if (inputValue[index] === span.textContent) {
+              span.classList.add("correct");
+              span.classList.remove("incorrect");
+            } else {
+              span.classList.add("incorrect");
+              span.classList.remove("correct");
+            }
+          } else {
+            span.classList.remove("correct", "incorrect");
+          }
+        });
+        if (inputValue === currentPrompt) {
+          const timeTaken = (Date.now() - typingStartTime) / 1000;
+          const wordCount = currentPrompt.split(" ").length;
+          const wpm = Math.round((wordCount / timeTaken) * 60);
+          resultEl.textContent = `Completed in ${timeTaken.toFixed(2)} sec. WPM: ${wpm}`;
+          inputEl.disabled = true;
+          drawGraph("typingGraph", wpm, 40, "Typing Speed (WPM)");
+        }
+      };
+    }
+    function resetTypingTest() {
+      startTypingTest();
+    }
+    
+    /* ---------------- Aim Test ---------------- */
+    let aimClicks = 0, aimStartTime;
+    function startAimTest() {
+      const aimArea = document.getElementById("aimTestArea");
+      const resultEl = document.getElementById("aimResult");
+      resultEl.textContent = "";
+      aimArea.innerHTML = "";
+      aimClicks = 0;
+      aimStartTime = Date.now();
+      spawnAimTarget();
+    }
+    function spawnAimTarget() {
+      const aimArea = document.getElementById("aimTestArea");
+      aimArea.innerHTML = "";
+      const target = document.createElement("div");
+      target.classList.add("aimTarget");
+      const areaRect = aimArea.getBoundingClientRect();
+      const x = Math.random() * (areaRect.width - 30);
+      const y = Math.random() * (areaRect.height - 30);
+      target.style.left = x + "px";
+      target.style.top = y + "px";
+      target.onclick = (e) => {
+        e.stopPropagation();
+        aimClicks++;
+        if (aimClicks >= 10) {
+          const timeTaken = (Date.now() - aimStartTime) / 1000;
+          const avgClickTime = timeTaken / 10;
+          document.getElementById("aimResult").textContent = `Completed 10 targets in ${timeTaken.toFixed(2)} sec. Avg click time: ${avgClickTime.toFixed(2)} sec`;
+          aimArea.innerHTML = "";
+          drawGraph("aimGraph", avgClickTime, 0.5, "Avg Click Time (sec)");
+        } else {
+          spawnAimTarget();
+        }
+      };
+      aimArea.appendChild(target);
+    }
+    function resetAimTest() {
+      startAimTest();
+    }
+    
   </script>
 </body>
 </html>
