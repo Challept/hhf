@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Test Challenge</title>
+  <style>
+    /* Global Reset & Base Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    header {
+      background: #fff;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    p.description {
+      font-size: 1em;
+      margin-bottom: 20px;
+      color: #555;
+    }
+    /* Container for the Memory Test */
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    /* Memory Grid Styles */
+    .memoryGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .memoryCube {
+      width: 100px;
+      height: 100px;
+      background: #e0e0e0;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      user-select: none;
+    }
+    /* Flash animations */
+    @keyframes flashGreen {
+      0% { background: #4caf50; transform: scale(1.0); }
+      50% { transform: scale(1.15); }
+      100% { background: #e0e0e0; transform: scale(1); }
+    }
+    @keyframes flashRed {
+      0% { background: #d32f2f; transform: scale(1.0); }
+      50% { transform: scale(1.15); }
+      100% { background: #e0e0e0; transform: scale(1); }
+    }
+    .memoryCube.active {
+      /* When showing sequence: use a quick green flash */
+      animation: flashGreen 0.3s ease-in-out;
+    }
+    .memoryCube.error {
+      animation: flashRed 0.3s ease-in-out;
+    }
+    .memoryCube.computer {
+      background: #2196f3; /* Blue highlight for the correct cube on error */
+    }
+    /* Buttons & Status */
+    button {
+      padding: 10px 15px;
+      background: #4caf50;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 5px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #43a047;
+      transform: scale(1.03);
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #d32f2f;
+    }
+    /* Back to thecoolpal.com button styling */
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #fff;
+      background: #2196f3;
+      padding: 10px 15px;
+      border-radius: 4px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .back-link:hover {
+      background: #1976d2;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Memory Test</h1>
+    <p class="description">
+      Memorize the sequence shown on the grid below. Then, repeat the sequence by tapping the cubes in the same order.
+      If you get it right, the cubes flash green and you advance to the next level (with an extra cube added and a faster display).
+      If you make a mistake, the tapped cube flashes red and the correct cube is highlighted in blue, then the game resets.
+    </p>
+  </header>
+  
+  <div class="container">
+    <div id="status">Level 1 - Watch the sequence</div>
+    <div class="memoryGrid" id="memoryGrid">
+      <!-- 9 cubes generated dynamically -->
+    </div>
+    <div>
+      <button id="startBtn" onclick="startMemoryGame()">Start Memory Test</button>
+      <button onclick="resetMemoryGame()">Reset Game</button>
+      <button onclick="backToMenu()">Back to Menu</button>
+    </div>
+    <div class="result" id="resultMessage"></div>
+    <a href="https://thecoolpal.com" class="back-link">Back to thecoolpal.com</a>
+  </div>
+  
+  <script>
+    /* ---------------- Global Variables for Memory Test ---------------- */
+    let memoryLevel = 1;
+    let memorySequence = [];
+    let memoryUserSequence = [];
+    let memoryDisplaying = false; // true while the computer is showing the sequence
+
+    // Generate the 3x3 grid (9 cubes) once.
+    function generateMemoryGrid() {
+      const grid = document.getElementById("memoryGrid");
+      grid.innerHTML = "";
+      for (let i = 0; i < 9; i++) {
+        const cube = document.createElement("div");
+        cube.classList.add("memoryCube");
+        cube.dataset.index = i; // store cube index 0-8
+        cube.addEventListener("click", memoryCubeClicked);
+        grid.appendChild(cube);
+      }
+    }
+
+    // Call grid generation on load
+    generateMemoryGrid();
+
+    // Start the memory game (from level 1)
+    function startMemoryGame() {
+      memoryLevel = 1;
+      memorySequence = [];
+      memoryUserSequence = [];
+      document.getElementById("resultMessage").textContent = "";
+      document.getElementById("startBtn").style.display = "none";
+      document.getElementById("status").textContent = `Level ${memoryLevel} - Watch the sequence`;
+      nextMemoryLevel();
+    }
+
+    // Advance to the next level: add a new random cube to the sequence and display it.
+    function nextMemoryLevel() {
+      memoryUserSequence = [];
+      if (memoryLevel === 1) {
+        // First level: start a new sequence
+        memorySequence = [Math.floor(Math.random() * 9)];
+      } else {
+        // Add one new random cube to the sequence
+        memorySequence.push(Math.floor(Math.random() * 9));
+      }
+      document.getElementById("status").textContent = `Level ${memoryLevel} - Watch the sequence`;
+      displayMemorySequence();
+    }
+
+    // Display the computer's sequence by flashing the cubes one by one.
+    function displayMemorySequence() {
+      memoryDisplaying = true;
+      const cubes = document.querySelectorAll(".memoryCube");
+      let delay = 0;
+      // The flash time decreases slightly as the level increases (but not too fast)
+      const flashTime = Math.max(300, 800 - (memoryLevel - 1) * 50);
+      memorySequence.forEach((cubeIndex, idx) => {
+        setTimeout(() => {
+          cubes[cubeIndex].classList.add("active");
+          setTimeout(() => {
+            cubes[cubeIndex].classList.remove("active");
+            if (idx === memorySequence.length - 1) {
+              // After last flash, allow user input
+              memoryDisplaying = false;
+              document.getElementById("status").textContent = `Level ${memoryLevel} - Repeat the sequence`;
+            }
+          }, flashTime);
+        }, delay);
+        delay += flashTime + 200; // pause between flashes
+      });
+    }
+
+    // Handle when the user clicks a cube.
+    function memoryCubeClicked(event) {
+      if (memoryDisplaying) return; // ignore clicks during sequence display
+
+      const cube = event.currentTarget;
+      const cubeIndex = parseInt(cube.dataset.index);
+      
+      // Provide immediate visual feedback (briefly add active class)
+      cube.classList.add("active");
+      setTimeout(() => {
+        cube.classList.remove("active");
+      }, 150);
+      
+      memoryUserSequence.push(cubeIndex);
+      const currentStep = memoryUserSequence.length - 1;
+      
+      // Check if the tapped cube matches the computer's sequence at this position.
+      if (cubeIndex !== memorySequence[currentStep]) {
+        // Incorrect: mark tapped cube red...
+        cube.classList.add("error");
+        // ...and highlight the correct cube in blue.
+        const cubes = document.querySelectorAll(".memoryCube");
+        cubes[memorySequence[currentStep]].classList.add("computer");
+        document.getElementById("resultMessage").textContent = `Wrong! You reached Level ${memoryLevel}. Game resets.`;
+        // After a short pause, reset the game.
+        setTimeout(() => {
+          resetMemoryGame();
+        }, 1500);
+        return;
+      }
+      
+      // If the sequence is complete:
+      if (memoryUserSequence.length === memorySequence.length) {
+        // Flash all cubes in green briefly to indicate success.
+        flashAllCubes("active", 300);
+        document.getElementById("resultMessage").textContent = `Level ${memoryLevel} complete!`;
+        memoryLevel++;
+        // Proceed to next level after a pause.
+        setTimeout(() => {
+          document.getElementById("resultMessage").textContent = "";
+          nextMemoryLevel();
+        }, 1000);
+      }
+    }
+
+    // Helper function: flash all cubes with a given class for a short time.
+    function flashAllCubes(className, duration) {
+      const cubes = document.querySelectorAll(".memoryCube");
+      cubes.forEach(cube => cube.classList.add(className));
+      setTimeout(() => {
+        cubes.forEach(cube => {
+          cube.classList.remove(className);
+          cube.classList.remove("computer");
+        });
+      }, duration);
+    }
+
+    // Reset the memory game to initial state.
+    function resetMemoryGame() {
+      memoryLevel = 1;
+      memorySequence = [];
+      memoryUserSequence = [];
+      document.getElementById("resultMessage").textContent = "";
+      document.getElementById("startBtn").style.display = "inline-block";
+      document.getElementById("status").textContent = "Level 1 - Watch the sequence";
+      // Clear any error or computer-highlight classes.
+      const cubes = document.querySelectorAll(".memoryCube");
+      cubes.forEach(cube => {
+        cube.classList.remove("active", "error", "computer");
+      });
+    }
+
+    // Back to Menu function (for demo purposes)
+    function backToMenu() {
+      // For this demo, simply reload the page
+      window.location.href = "https://thecoolpal.com";
+    }
+  </script>
+</body>
+</html>
